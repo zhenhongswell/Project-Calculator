@@ -2,9 +2,20 @@
 let firstNumber_ = 0;
 let SecondNumber_ = 0;
 let operator_ = "";
-
+let storeDisplayString = "";
 //number operator number
 // 3 + 2
+
+const numberButtons = document.querySelector('.numbers');
+const displayStringInput = document.querySelector('.display');
+
+numberButtons.childNodes.forEach(btn => {
+    btn.addEventListener("click",()=> {
+        storeDisplayString = btn.textContent;
+        displayStringInput.value = displayString;
+    });
+});
+
 
 function operator(firstNumber,operator,secondNumber){
     let result = 0;
@@ -40,3 +51,4 @@ function multiply(a,b){
 function divide(a,b){
     return a/b;
 }
+
