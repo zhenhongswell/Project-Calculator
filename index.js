@@ -1,24 +1,79 @@
-
-let firstNumber_ = 0;
-let SecondNumber_ = 0;
-let operator_ = "";
-let storeDisplayString = "";
+let storeDisplayString = '';
+let CurrentAnswer = '';
 //number operator number
 // 3 + 2
 
 const numberButtons = document.querySelector('.numbers');
+const operatorButtons = document.querySelector('.operators')
 const displayStringInput = document.querySelector('.display');
+const equalButton = document.querySelector('.equal');
+const clearButton = document.querySelector('.clear');
 
 numberButtons.childNodes.forEach(btn => {
-    btn.addEventListener("click",()=> {
-        storeDisplayString = btn.textContent;
-        displayStringInput.value = displayString;
-    });
+    btn.addEventListener("click",()=>storeOnClicks(btn));
 });
+
+operatorButtons.childNodes.forEach(btn => {
+    btn.addEventListener("click",()=>storeOnClicks(btn));
+});
+
+function storeOnClicks(button) {
+    storeDisplayString += button.textContent;
+    display(storeDisplayString);
+}
+
+function display(string){
+    displayStringInput.value = string;
+}
+
+equalButton.addEventListener('click',()=>{
+    let isFirstValue = true;
+    let firstNumberString = '';
+    let secondNumberString = '';
+    let operatorString = '';
+    
+    // string turn to array
+    storeDisplayString = storeDisplayString.split('');
+    console.log(storeDisplayString);
+    storeDisplayString.forEach(element => {
+        if (['+','-','*','/'].includes(element)){
+            isFirstValue = false;
+            operatorString = element;
+            return; // equals continue
+        }
+        if (isFirstValue)firstNumberString += element;
+        else secondNumberString += element;
+    });
+    if (firstNumberString ===''){
+        console.log('dont have first number');
+        firstNumberString = '0';
+    }else{
+        console.log('first number:',firstNumberString);
+    }
+    if (secondNumberString ===''){
+        console.log('dont have second number');
+        secondNumberString ='0';
+    }else{
+        console.log('first number:',secondNumberString);
+    }
+
+    storeDisplayString = operator(firstNumberString,operatorString,secondNumberString);
+    display(storeDisplayString);
+});
+
+clearButton.addEventListener('click',()=>clear());
+
+function clear(){
+    storeDisplayString = '';
+    display(storeDisplayString);
+}
 
 
 function operator(firstNumber,operator,secondNumber){
+    firstNumber = parseInt(firstNumber);
+    secondNumber = parseInt(secondNumber);
     let result = 0;
+    // console.log('equal');
     switch(operator){
         case '+':
             result = add(firstNumber,secondNumber);
@@ -26,14 +81,14 @@ function operator(firstNumber,operator,secondNumber){
         case '-':
             result = subtract(firstNumber,secondNumber);
             break;
-        case 'x':
+        case '*':
             result = multiply(firstNumber,secondNumber);
             break;
         case '/':
             result = divide(firstNumber,secondNumber);
             break;
     }
-    return result;
+    return result.toString();
 }
 
 function add(a,b){
