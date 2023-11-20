@@ -1,8 +1,5 @@
 let storeDisplayString = '';
 let CurrentAnswer = '';
-//number operator number
-// 3 + 2
-
 const numberButtons = document.querySelector('.numbers');
 const operatorButtons = document.querySelector('.operators')
 const displayStringInput = document.querySelector('.display');
@@ -17,21 +14,11 @@ operatorButtons.childNodes.forEach(btn => {
     btn.addEventListener("click",()=>storeOnClicks(btn));
 });
 
-function storeOnClicks(button) {
-    storeDisplayString += button.textContent;
-    display(storeDisplayString);
-}
-
-function display(string){
-    displayStringInput.value = string;
-}
-
 equalButton.addEventListener('click',()=>{
     let isFirstValue = true;
     let firstNumberString = '';
     let secondNumberString = '';
     let operatorString = '';
-    
     // string turn to array
     storeDisplayString = storeDisplayString.split('');
     console.log(storeDisplayString);
@@ -44,6 +31,7 @@ equalButton.addEventListener('click',()=>{
         if (isFirstValue)firstNumberString += element;
         else secondNumberString += element;
     });
+
     if (firstNumberString ===''){
         console.log('dont have first number');
         firstNumberString = '0';
@@ -63,17 +51,25 @@ equalButton.addEventListener('click',()=>{
 
 clearButton.addEventListener('click',()=>clear());
 
+function storeOnClicks(button) {
+    storeDisplayString += button.textContent;
+    display(storeDisplayString);
+}
+
+function display(value){
+    console.log(`${typeof(value)} | ${value}`);
+    displayStringInput.value = value;
+}
+
 function clear(){
     storeDisplayString = '';
     display(storeDisplayString);
 }
 
-
 function operator(firstNumber,operator,secondNumber){
     firstNumber = parseInt(firstNumber);
     secondNumber = parseInt(secondNumber);
     let result = 0;
-    // console.log('equal');
     switch(operator){
         case '+':
             result = add(firstNumber,secondNumber);
@@ -87,6 +83,9 @@ function operator(firstNumber,operator,secondNumber){
         case '/':
             result = divide(firstNumber,secondNumber);
             break;
+    }
+    if (result === 0){
+        result = '';
     }
     return result.toString();
 }
