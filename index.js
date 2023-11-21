@@ -24,15 +24,13 @@ equalButton.addEventListener('click',()=>{
     storeDisplayString = storeDisplayString.split('');
     
     storeDisplayString.forEach(element => {
-        // when the current element is an operator isFirstValue set to false
-        // in order to secondNumberString to do secondNumberString += element
+        // 
         if (['+','-','*','/'].includes(element)){
             // deal multiple operators
             if (operatorString!=''){
                 firstNumberString = operator(firstNumberString,operatorString,secondNumberString);
                 console.log(`secondNumberString:${secondNumberString}`);
                 secondNumberString = '';
-                operatorString = '';
             }
             isFirstValue = false;
             operatorString = element;
@@ -40,6 +38,8 @@ equalButton.addEventListener('click',()=>{
         }
         isFirstValue ? firstNumberString += element: secondNumberString += element;
     });
+
+    
 
     if (firstNumberString ===''){
         console.log('dont have first number');
@@ -53,8 +53,13 @@ equalButton.addEventListener('click',()=>{
     }else{
         console.log('second number:',secondNumberString);
     }
-
-    storeDisplayString = operator(firstNumberString,operatorString,secondNumberString);
+    // press '=' btn
+    if (operatorString === ''){
+        storeDisplayString = firstNumberString;
+    }else{
+        storeDisplayString = operator(firstNumberString,operatorString,secondNumberString);
+    }
+    
     display(storeDisplayString);
 });
 
