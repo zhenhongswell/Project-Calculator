@@ -1,23 +1,29 @@
 body{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     box-sizing: border-box;
     border: 10px red;
 }
 input{
-    width: auto;
+    box-sizing: border-box;
+    width: 200px;
     height: 40px;
     font-size: 20px;
+    background-color: azure;
+    
 }
 .container {
     display: flex;
+    border-radius: 5px;
 }
 .numbers{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     box-sizing: border-box;
-    width: 124px;
+    width: 120px;
     height: auto;
 }
 .sqare{
@@ -29,6 +35,7 @@ input{
     height: 40px;
     font-size: 15px;
     background-color: blanchedalmond;
+    border-radius: 5px;
     border: 2px solid black;
 }
 
