@@ -19,17 +19,26 @@ equalButton.addEventListener('click',()=>{
     let firstNumberString = '';
     let secondNumberString = '';
     let operatorString = '';
+
     // string turn to array
     storeDisplayString = storeDisplayString.split('');
-    console.log(storeDisplayString);
+    
     storeDisplayString.forEach(element => {
+        // when the current element is an operator isFirstValue set to false
+        // in order to secondNumberString to do secondNumberString += element
         if (['+','-','*','/'].includes(element)){
+            // deal multiple operators
+            if (operatorString!=''){
+                firstNumberString = operator(firstNumberString,operatorString,secondNumberString);
+                console.log(`secondNumberString:${secondNumberString}`);
+                secondNumberString = '';
+                operatorString = '';
+            }
             isFirstValue = false;
             operatorString = element;
-            return; // equals continue
+            return; // continue operator won't be stack to secondNumberString
         }
-        if (isFirstValue)firstNumberString += element;
-        else secondNumberString += element;
+        isFirstValue ? firstNumberString += element: secondNumberString += element;
     });
 
     if (firstNumberString ===''){
@@ -42,7 +51,7 @@ equalButton.addEventListener('click',()=>{
         console.log('dont have second number');
         secondNumberString ='0';
     }else{
-        console.log('first number:',secondNumberString);
+        console.log('second number:',secondNumberString);
     }
 
     storeDisplayString = operator(firstNumberString,operatorString,secondNumberString);
@@ -65,6 +74,8 @@ function clear(){
     storeDisplayString = '';
     display(storeDisplayString);
 }
+
+
 
 function operator(firstNumber,operator,secondNumber){
     firstNumber = parseInt(firstNumber);
