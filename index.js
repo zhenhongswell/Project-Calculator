@@ -5,6 +5,12 @@ const operatorButtons = document.querySelector('.operators')
 const displayStringInput = document.querySelector('.display');
 const equalButton = document.querySelector('.equal');
 const clearButton = document.querySelector('.clear');
+const deleteButton = document.querySelector('.delete');
+
+deleteButton.addEventListener('click',()=>{
+    storeDisplayString = storeDisplayString.slice(0,-1);
+    display(storeDisplayString);
+})
 
 numberButtons.childNodes.forEach(btn => {
     btn.addEventListener("click",()=>storeOnClicks(btn));
@@ -64,7 +70,26 @@ clearButton.addEventListener('click',()=>clear());
 
 
 function storeOnClicks(button) {
-    storeDisplayString += button.textContent;
+    //bug fix -> can't have multple + - * / .
+    //check if the any none number text are input twice or multiple time
+
+    // check if is a number
+    if (['+','-','*','/'].includes(button.textContent)){
+        //if the non-number texts are duplicate remove the last character
+        //swap the last character.
+        if (['+','-','*','/'].includes(storeDisplayString[storeDisplayString.length-1]))
+            storeDisplayString = storeDisplayString.slice(0,-1);
+        storeDisplayString += button.textContent;
+        
+    }else if (['.'].includes(button.textContent)){
+        if (storeDisplayString[storeDisplayString.length-1]  !== '.'){
+            //can't not have multple . in the string.
+            storeDisplayString += button.textContent;
+        }
+    }
+    else{
+        storeDisplayString += button.textContent;
+    }
     display(storeDisplayString);
 }
 
@@ -81,8 +106,17 @@ function clear(){
 
 
 function operator(firstNumber,operator,secondNumber){
-    firstNumber = parseInt(firstNumber);
-    secondNumber = parseInt(secondNumber);
+    if (firstNumber.includes("."))
+        firstNumber = parseFloat(firstNumber)
+    else{
+        firstNumber = parseInt(firstNumber);
+    }
+    if (secondNumber.includes("."))
+        secondNumber = parseFloat(secondNumber)
+    else{
+        secondNumber = parseInt(secondNumber);
+    }
+
     let result = 0;
     switch(operator){
         case '+':
