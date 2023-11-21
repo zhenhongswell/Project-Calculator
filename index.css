@@ -1,0 +1,38 @@
+body{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 10px red;
+}
+input{
+    width: auto;
+    height: 40px;
+    font-size: 20px;
+}
+.container {
+    display: flex;
+}
+.numbers{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 124px;
+    height: auto;
+}
+.sqare{
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+    background-color: blanchedalmond;
+    border: 2px solid black;
+}
+
+.operators{
+    display: flex;
+    flex-direction: column;
+}
